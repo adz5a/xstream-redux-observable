@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+
+        "pretty": true,
+
+
+        "module": "es6",
+        "moduleResolution": "node",
+        "target": "es6",
+        "declaration": true,
+        "noEmitHelpers": true,
+
+
+        "removeComments": false,
+        "preserveConstEnums": true,
+
+        "sourceMap": true,
+
+        "outDir": "lib",
+
+        "diagnostics": true,
+
+
+
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "noImplicitReturns": true
+    },
+    "exclude": [
+        "node_modules", "lib"
+    ],
+    "awesomeTypescriptLoaderOptions": {
+        "useBabel": true
+    }
+}
