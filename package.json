@@ -4,6 +4,20 @@
         "jest": "^21.0.1",
         "typescript": "^2.5.2"
     },
+    "devDependencies": {
+        "babel-preset-env": "^1.6.0",
+        "redux": "^3.7.2",
+        "xstream": "^10.9.0"
+    },
+    "peerDependencies": {
+        "redux": "^3.7.2",
+        "xstream": "^10.9.0"
+    },
+    "scripts": {
+        "test": "node scripts/test.js",
+        "compile:watch": "tsc --watch",
+        "compile": "tsc"
+    },
     "jest": {
         "collectCoverageFrom": [
             "src/**/*.{js,jsx}"
@@ -47,17 +61,5 @@
                 }
             ]
         ]
-    },
-    "scripts": {
-        "test": "node scripts/test.js",
-        "compile:watch": "tsc --watch",
-        "compile": "tsc"
-    },
-    "devDependencies": {
-        "redux": "^3.7.2",
-        "babel-preset-env": "^1.6.0"
-    },
-    "peerDependencies": {
-        "redux": "^3.7.2"
     }
 }
