@@ -22,7 +22,8 @@
         "test": "node scripts/test.js --en=jsdom",
         "test:watch": "node scripts/test.js --env=jsdom --watch",
         "compile:watch": "tsc --watch",
-        "compile": "tsc"
+        "compile": "tsc",
+        "install": "npm run compile"
     },
     "jest": {
         "testPathIgnorePatterns": [
