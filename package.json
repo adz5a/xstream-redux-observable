@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "babel-jest": "^21.0.0",
-        "jest": "20.0",
+        "jest": "20.0.4",
         "typescript": "^2.5.2"
     },
     "devDependencies": {
@@ -14,8 +14,8 @@
         "xstream": "^10.9.0"
     },
     "scripts": {
-        "test": "node scripts/test.js",
-        "test:watch": "node scripts/test.js --watch",
+        "test": "node scripts/test.js --en=jsdom",
+        "test:watch": "node scripts/test.js --env=jsdom --watch",
         "compile:watch": "tsc --watch",
         "compile": "tsc"
     },
