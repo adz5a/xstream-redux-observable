@@ -19,6 +19,10 @@
         "compile": "tsc"
     },
     "jest": {
+        "testPathIgnorePatterns": [
+            "<rootDir>/node_modules/",
+            "<rootDir>/lib/"
+        ],
         "collectCoverageFrom": [
             "src/**/*.{js,jsx}"
         ],
