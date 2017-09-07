@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "babel-jest": "^21.0.0",
-        "jest": "^21.0.1",
+        "jest": "20.0",
         "typescript": "^2.5.2"
     },
     "devDependencies": {
@@ -15,6 +15,7 @@
     },
     "scripts": {
         "test": "node scripts/test.js",
+        "test:watch": "node scripts/test.js --watch",
         "compile:watch": "tsc --watch",
         "compile": "tsc"
     },
