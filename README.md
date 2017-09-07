@@ -18,7 +18,9 @@ The main reason for choosing xstream over RxJS or Most.js is it's simplicity :
 peerDependencies with specific version number.
 
 
+
 ## Documentation :
+
 
 The api is pretty simple, it consists in one function : 
 
