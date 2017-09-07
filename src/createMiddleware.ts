@@ -15,7 +15,7 @@ export interface Run {
     <S> ( action$: Stream<Action>, api?: MiddlewareAPI<S> ): Stream<Action>
     <S> ( action$: Stream<Action> ): Stream<Action>
 }
-export function createMiddleware ( run: Run, name: string | null = null ): Middleware {
+export function createMiddleware ( run: Run, name: string | null = null ): Middleware {
 
 
     const orignalActionSubject$ = xs.create() as Stream<Action>;
@@ -23,6 +23,11 @@ export function createMiddleware ( run: Run, name: string | null = null ): Midd
     const NAME = name === null ?
         "UNKNOWN_MIDDLEWARE":
         name;
+
+    if ( typeof run !== "function" ) {
+        throw new TypeError("createMiddleware : first arg must be a function :: Stream<Action> -> Stream<Action>");
+    }
+
 
     return <S>( api: MiddlewareAPI<S> ) =>  {
 
@@ -39,7 +44,10 @@ export function createMiddleware ( run: Run, name: string | null = null ): Midd
                 // dispatch it
                 // Warning : this will result in infinite loops
                 // if you just returns the original stream
-                next: api.dispatch,
+                next: action => {
+                    console.log(action);
+                    api.dispatch(action);
+                },
                 error () {
                     console.error(
                         "Terminal error in middleware " + NAME +
@@ -77,5 +85,5 @@ export function createMiddleware ( run: Run, name: string | null = null ): Midd
     };
 
 
-     
+
 }
