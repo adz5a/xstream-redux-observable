@@ -13,7 +13,7 @@ export type Action$ = Stream<Action>;
 
 export interface Run {
     <S> ( action$: Stream<Action>, api: MiddlewareAPI<S> ): Stream<Action>
-    <S> ( action$: Stream<Action> ): Stream<Action>
+    ( action$: Stream<Action> ): Stream<Action>
 }
 export function createMiddleware ( run: Run, name: string | null = null ): Middleware {
 
