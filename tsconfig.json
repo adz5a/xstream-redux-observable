@@ -30,6 +30,9 @@
     "exclude": [
         "node_modules", "lib"
     ],
+    "files": [
+        "src/createMiddleware.ts"
+    ],
     "awesomeTypescriptLoaderOptions": {
         "useBabel": true
     }
