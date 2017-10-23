@@ -69,6 +69,8 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
 
       return action => {
 
+        // process firt, store is always up to date
+        const returnValue = next(action);
         // if your run function throws
         // synchronously then send the
         // error and close the stream
@@ -78,7 +80,7 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
           orignalActionSubject$.shamefullySendError(action);
         }
 
-        return next(action);
+        return returnValue;
 
       };
 
