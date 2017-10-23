@@ -6,7 +6,6 @@
 
         "module": "es6",
         "moduleResolution": "node",
-        "target": "es6",
         "declaration": true,
         "noEmitHelpers": true,
 
@@ -16,9 +15,6 @@
 
         "sourceMap": true,
 
-        "outDir": "lib",
-
-        "diagnostics": true,
 
 
 
@@ -29,9 +25,6 @@
     },
     "exclude": [
         "node_modules", "lib"
-    ],
-    "files": [
-        "src/createMiddleware.ts"
     ],
     "awesomeTypescriptLoaderOptions": {
         "useBabel": true
