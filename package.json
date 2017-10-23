@@ -1,5 +1,5 @@
 {
-    "version": "0.0.1",
+    "version": "0.0.2",
     "name": "xstream-redux-observable",
     "author": "adz5a",
     "main": "./lib/createMiddleware.js",
@@ -8,11 +8,11 @@
         "typescript": "^2.5.2"
     },
     "devDependencies": {
-        "babel-preset-env": "^1.6.0",
         "babel-jest": "^21.0.0",
+        "babel-preset-env": "^1.6.0",
         "jest": "20.0.4",
-        "xstream": "^10.9.0",
-        "redux": "^3.7.2"
+        "redux": "^3.7.2",
+        "xstream": "^10.9.0"
     },
     "peerDependencies": {
         "redux": "^3.7.2",
