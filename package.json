@@ -19,7 +19,7 @@
         "xstream": "^10.9.0"
     },
     "scripts": {
-        "test": "node scripts/test.js --en=jsdom",
+        "test": "node scripts/test.js --env=jsdom",
         "test:watch": "node scripts/test.js --env=jsdom --watch",
         "compile:watch": "tsc --watch",
         "compile": "tsc"
