@@ -22,7 +22,9 @@
         "test": "node scripts/test.js --env=jsdom",
         "test:watch": "node scripts/test.js --env=jsdom --watch",
         "compile:watch": "tsc --watch --target es6",
-        "compile": "tsc --target es6 --outDir lib && tsc --target es5 --outDir es5"
+        "compile": "tsc --target es6 --outDir lib --module es6 && tsc --target es6 --module commonjs --outDir es5",
+        "clean": "rm -rf ./dist ./es5",
+        "_publish": "npm run clean && npm run compile"
     },
     "jest": {
         "testPathIgnorePatterns": [
