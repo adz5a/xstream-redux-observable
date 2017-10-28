@@ -1,5 +1,5 @@
 {
-    "version": "0.0.2",
+    "version": "0.0.4",
     "name": "xstream-redux-observable",
     "author": "adz5a",
     "main": "./lib/createMiddleware.js",
