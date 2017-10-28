@@ -2,7 +2,13 @@
     "version": "0.0.4",
     "name": "xstream-redux-observable",
     "author": "adz5a",
-    "main": "./lib/createMiddleware.js",
+    "main": "./lib/index.js",
+    "directories": {
+      "lib": [
+        "./lib",
+        "./commonjs"
+      ]
+    },
     "types": "./lib/createMiddleware.d.ts",
     "dependencies": {
         "typescript": "^2.5.2"
@@ -22,7 +28,7 @@
         "test": "node scripts/test.js --env=jsdom",
         "test:watch": "node scripts/test.js --env=jsdom --watch",
         "compile:watch": "tsc --watch --target es6",
-        "compile": "tsc --target es6 --outDir lib --module es6 && tsc --target es6 --module commonjs --outDir es5",
+        "compile": "tsc --target es6 --outDir lib --module es6 && tsc --target es6 --module commonjs --outDir commonjs",
         "clean": "rm -rf ./dist ./es5",
         "_publish": "npm run clean && npm run compile"
     },

@@ -23,7 +23,10 @@
         "noImplicitReturns": true
     },
     "exclude": [
-        "node_modules", "lib"
+        "node_modules", "lib", "commonjs"
+    ],
+    "include": [
+      "src/**/*"
     ],
     "awesomeTypescriptLoaderOptions": {
         "useBabel": true
