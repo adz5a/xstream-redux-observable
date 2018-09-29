@@ -1,4 +1,5 @@
 import { Stream } from "xstream";
+import { Action } from "redux";
 
 
 export interface Reducer<T, R>{
@@ -39,10 +40,6 @@ export const withType = <T>( type: string ) => ( data: T ) => {
   };
 };
 
-export interface Action {
-  type: string;
-  data: any;
-}
-export const ofType = ( type: string ) => ( action: Action ) => {
+export const ofType = <T extends string>( type: T ) => ( action: Action ) => {
   return type === action.type;
 };
