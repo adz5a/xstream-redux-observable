@@ -16,8 +16,6 @@ export interface Run {
     ( action$: Stream<Action> ): Stream<Action>
 }
 export function createMiddleware ( run: Run, name: string | null = null ): Middleware {
-
-
   /*
    * Will serve as subkect to dispatch the actions.
    */
@@ -31,17 +29,13 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
     throw new TypeError("createMiddleware : first arg must be a function :: Stream<Action> -> Stream<Action>");
   }
 
-
   return <S>( api: MiddlewareAPI<S> ) =>  {
-
 
     const action$ = run.length > 1 ?
       run(orignalActionSubject$, api):
       run(orignalActionSubject$);
 
-
-
-    action$.compose(delay(1))
+    action$
       .addListener({
         // for each new received action
         // dispatch it
@@ -63,7 +57,6 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
           );
         }
       });
-
 
     return next => {
 
