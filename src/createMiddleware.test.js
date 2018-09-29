@@ -1,5 +1,6 @@
 import { createMiddleware } from "./createMiddleware";
 import { createStore, applyMiddleware } from "redux";
+import xs from "xstream";
 
 
 describe("createMiddleware", () => {
@@ -86,26 +87,25 @@ describe("createMiddleware", () => {
       }
     });
 
-    // test("redux throws if you do not return an action", () => {
-    //     const mw = createMiddleware(action$ => action$
-    //         .take(1)
-    //         .mapTo({
-    //             noType: "this object is not a valid action"
-    //         })
-    //         .debug("output"));
+    test("redux throws if you do not return an action", () => {
+      const expectedAction = {
+        type: "replace error"
+      };
+      const mw = createMiddleware(action$ => action$
+        .mapTo({
+          noType: "this object is not a valid action"
+        }));
 
+      const reducer = ( state = [], action ) => [ ...state, action ];
+      const store = createStore(reducer, applyMiddleware(mw));
 
-    //     const reducer = ( state = [], action ) => [ ...state, action ];
-
-    //     const store = createStore(reducer, applyMiddleware(mw));
-    //     store.dispatch({ type: "an action" });
-
-    //     const delay = new Promise( resolve => setTimeout(resolve, 10) );
-    //     return delay
-    //         .then( () => {
-    //             console.log(store.getState());
-    //         } );
-    // });
+      expect(() => {
+        store.dispatch({
+          type: "valid action but invalid transformation"
+        });
+      })
+        .toThrow();
+    });
 
   });
 

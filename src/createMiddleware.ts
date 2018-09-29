@@ -63,16 +63,11 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
 
       return action => {
 
-        // process firt, store is always up to date
+        // process firt, store is always up to date,
+        // so using the `getState` function of the API
+        // is up to date.
         const returnValue = next(action);
-        // if your run function throws
-        // synchronously then send the
-        // error and close the stream
-        try {
-          orignalActionSubject$.shamefullySendNext(action);
-        } catch ( e ) {
-          orignalActionSubject$.shamefullySendError(action);
-        }
+        orignalActionSubject$.shamefullySendNext(action);
 
         return returnValue;
 
