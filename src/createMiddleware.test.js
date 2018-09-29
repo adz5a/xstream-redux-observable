@@ -11,7 +11,9 @@ describe("createMiddleware", () => {
   describe("run function", () => {
 
     test("should be called exactly once", () => {
-      const run = jest.fn(( action$ ) => action$.mapTo({
+      const run = jest.fn(( action$ ) => action$
+        .take(1)
+        .mapTo({
         type: "noop"
       }));
 
@@ -43,11 +45,11 @@ describe("createMiddleware", () => {
 
       function run1 ( action$ ) {
         expect(arguments.length).toBe(1);
-        return action$.mapTo({ type: "noop" });
+        return action$.take(1).mapTo({ type: "noop" });
       }
       function run2 ( action$, api ) {
         expect(arguments.length).toBe(2);
-        return action$.mapTo({ type: "noop" });
+        return action$.take(1).mapTo({ type: "noop" });
       }
 
       [

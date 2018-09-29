@@ -44,7 +44,8 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
         next: action => {
           api.dispatch(action);
         },
-        error () {
+        error (e) {
+          console.error(e);
           console.error(
             "Terminal error in middleware " + NAME + "\n",
             "stream will now close..."
