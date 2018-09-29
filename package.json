@@ -4,25 +4,24 @@
     "author": "adz5a",
     "main": "./commonjs/index.js",
     "directories": {
-      "lib": [
-        "./lib",
-        "./es5"
-      ]
+        "lib": [
+            "./lib",
+            "./es5"
+        ]
     },
     "types": "./lib/createMiddleware.d.ts",
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
-        "typescript": "^2.5.2",
-        "babel-jest": "^21.0.0",
-        "babel-preset-env": "^1.6.0",
-        "jest": "20.0.4",
-        "redux": "^3.7.2",
-        "xstream": "^10.9.0"
+        "babel-jest": "^23.6.0",
+        "babel-preset-env": "^1.7.0",
+        "jest": "^23.6.0",
+        "redux": "^4.0.0",
+        "typescript": "^3.1.1",
+        "xstream": "^11.7.0"
     },
     "peerDependencies": {
-        "redux": "^3.7.2",
-        "xstream": "^10.9.0"
+        "typescript": "^3.1.1",
+        "xstream": "^11.7.0"
     },
     "scripts": {
         "test": "node scripts/test.js --env=jsdom",
@@ -31,7 +30,7 @@
         "compile": "npm run compile-es6 && npm run compile-commonjs",
         "compile-es6": "tsc --target es6 --outDir lib --module es6",
         "compile-commonjs": "tsc --target es6 --outDir lib --module es6 --module commonjs --outDir commonjs",
-        "clean": "rm -rf ./dist ./es5",
+        "clean": "git clean -df && rm -rf ./lib ./commonjs",
         "_publish": "npm run clean && npm run compile"
     },
     "jest": {

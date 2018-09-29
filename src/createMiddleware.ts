@@ -6,13 +6,14 @@ import {
   Middleware,
   MiddlewareAPI,
   Store,
-  Action
+  Action,
+  Dispatch
 } from "redux";
 
 export type Action$ = Stream<Action>;
 
 export interface Run {
-  <S> ( action$: Stream<Action>, api: MiddlewareAPI<S> ): Stream<Action>
+  <D extends Dispatch = Dispatch, S = any> ( action$: Stream<Action>, api: MiddlewareAPI<D, S> ): Stream<Action>
     ( action$: Stream<Action> ): Stream<Action>
 }
 export function createMiddleware ( run: Run, name: string | null = null ): Middleware {
@@ -29,7 +30,7 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
     throw new TypeError("createMiddleware : first arg must be a function :: Stream<Action> -> Stream<Action>");
   }
 
-  return <S>( api: MiddlewareAPI<S> ) =>  {
+  return <S>( api: MiddlewareAPI<Dispatch, S> ) =>  {
 
     const action$ = run.length > 1 ?
       run(orignalActionSubject$, api):
