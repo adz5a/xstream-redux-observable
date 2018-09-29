@@ -1,8 +1,8 @@
 {
-    "version": "0.0.4",
+    "version": "0.0.5",
     "name": "xstream-redux-observable",
     "author": "adz5a",
-    "main": "./es5/index.js",
+    "main": "./commonjs/index.js",
     "directories": {
       "lib": [
         "./lib",
@@ -28,7 +28,9 @@
         "test": "node scripts/test.js --env=jsdom",
         "test:watch": "node scripts/test.js --env=jsdom --watch",
         "compile:watch": "tsc --watch --target es6",
-        "compile": "tsc --target es6 --outDir lib --module es6 && tsc --target es5 --module commonjs --outDir es5",
+        "compile": "npm run compile-es6 && npm run compile-commonjs",
+        "compile-es6": "tsc --target es6 --outDir lib --module es6",
+        "compile-commonjs": "tsc --target es6 --outDir lib --module es6 --module commonjs --outDir commonjs",
         "clean": "rm -rf ./dist ./es5",
         "_publish": "npm run clean && npm run compile"
     },
