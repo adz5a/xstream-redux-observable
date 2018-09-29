@@ -2,16 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fold = (stream, reducer, initial) => {
     return new Promise((resolve, reject) => {
-        let accumulator = initial;
-        stream.addListener({
-            complete() {
-                resolve(accumulator);
-            },
+        stream
+            .fold(reducer, initial)
+            .last()
+            .addListener({
             error(error) {
                 reject(error);
             },
             next(value) {
-                accumulator = reducer(accumulator, value);
+                resolve(value);
             }
         });
     });

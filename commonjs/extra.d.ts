@@ -1,4 +1,5 @@
 import { Stream } from "xstream";
+import { Action } from "redux";
 export interface Reducer<T, R> {
     (r: R, v: T): R;
 }
@@ -8,8 +9,4 @@ export declare const withType: <T>(type: string) => (data: T) => {
     type: string;
     data: T;
 };
-export interface Action {
-    type: string;
-    data: any;
-}
-export declare const ofType: (type: string) => (action: Action) => boolean;
+export declare const ofType: <T extends string>(type: T) => (action: Action<any>) => boolean;

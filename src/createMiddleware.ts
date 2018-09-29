@@ -6,18 +6,17 @@ import {
   Middleware,
   MiddlewareAPI,
   Store,
-  Action
+  Action,
+  Dispatch
 } from "redux";
 
 export type Action$ = Stream<Action>;
 
 export interface Run {
-  <S> ( action$: Stream<Action>, api: MiddlewareAPI<S> ): Stream<Action>
+  <D extends Dispatch = Dispatch, S = any> ( action$: Stream<Action>, api: MiddlewareAPI<D, S> ): Stream<Action>
     ( action$: Stream<Action> ): Stream<Action>
 }
 export function createMiddleware ( run: Run, name: string | null = null ): Middleware {
-
-
   /*
    * Will serve as subkect to dispatch the actions.
    */
@@ -31,17 +30,13 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
     throw new TypeError("createMiddleware : first arg must be a function :: Stream<Action> -> Stream<Action>");
   }
 
-
-  return <S>( api: MiddlewareAPI<S> ) =>  {
-
+  return <S>( api: MiddlewareAPI<Dispatch, S> ) =>  {
 
     const action$ = run.length > 1 ?
       run(orignalActionSubject$, api):
       run(orignalActionSubject$);
 
-
-
-    action$.compose(delay(1))
+    action$
       .addListener({
         // for each new received action
         // dispatch it
@@ -50,7 +45,8 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
         next: action => {
           api.dispatch(action);
         },
-        error () {
+        error (e) {
+          console.error(e);
           console.error(
             "Terminal error in middleware " + NAME + "\n",
             "stream will now close..."
@@ -64,21 +60,15 @@ export function createMiddleware ( run: Run, name: string | null = null ): Middl
         }
       });
 
-
     return next => {
 
       return action => {
 
-        // process firt, store is always up to date
+        // process firt, store is always up to date,
+        // so using the `getState` function of the API
+        // is up to date.
         const returnValue = next(action);
-        // if your run function throws
-        // synchronously then send the
-        // error and close the stream
-        try {
-          orignalActionSubject$.shamefullySendNext(action);
-        } catch ( e ) {
-          orignalActionSubject$.shamefullySendError(action);
-        }
+        orignalActionSubject$.shamefullySendNext(action);
 
         return returnValue;
 

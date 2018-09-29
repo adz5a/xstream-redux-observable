@@ -1,4 +1,5 @@
 import { Stream } from "xstream";
+import { Action } from "redux";
 
 
 export interface Reducer<T, R>{
@@ -6,21 +7,17 @@ export interface Reducer<T, R>{
 }
 export const fold = <T, R>( stream: Stream<T>, reducer: Reducer<T, R>, initial: R ): Promise<R> => {
   return new Promise(( resolve, reject ) => {
-
-    let accumulator: R = initial;
-
-    stream.addListener({
-      complete () {
-        resolve(accumulator);
-      },
-      error ( error ) {
-        reject (error);
-      },
-      next ( value ) {
-        accumulator = reducer(accumulator, value);
-      }
-    });
-
+    stream
+      .fold(reducer, initial)
+      .last()
+      .addListener({
+        error(error) {
+          reject(error);
+        },
+        next(value) {
+          resolve(value);
+        }
+      });
   });
 };
 
@@ -39,10 +36,6 @@ export const withType = <T>( type: string ) => ( data: T ) => {
   };
 };
 
-export interface Action {
-  type: string;
-  data: any;
-}
-export const ofType = ( type: string ) => ( action: Action ) => {
+export const ofType = <T extends string>( type: T ) => ( action: Action ) => {
   return type === action.type;
 };
