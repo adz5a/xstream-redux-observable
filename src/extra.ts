@@ -7,21 +7,17 @@ export interface Reducer<T, R>{
 }
 export const fold = <T, R>( stream: Stream<T>, reducer: Reducer<T, R>, initial: R ): Promise<R> => {
   return new Promise(( resolve, reject ) => {
-
-    let accumulator: R = initial;
-
-    stream.addListener({
-      complete () {
-        resolve(accumulator);
-      },
-      error ( error ) {
-        reject (error);
-      },
-      next ( value ) {
-        accumulator = reducer(accumulator, value);
-      }
-    });
-
+    stream
+      .fold(reducer, initial)
+      .last()
+      .addListener({
+        error(error) {
+          reject(error);
+        },
+        next(value) {
+          resolve(value);
+        }
+      });
   });
 };
 
