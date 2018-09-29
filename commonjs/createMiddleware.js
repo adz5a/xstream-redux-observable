@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const xstream_1 = require("xstream");
-const delay_1 = require("xstream/extra/delay");
 function createMiddleware(run, name = null) {
     /*
      * Will serve as subkect to dispatch the actions.
@@ -17,7 +16,7 @@ function createMiddleware(run, name = null) {
         const action$ = run.length > 1 ?
             run(orignalActionSubject$, api) :
             run(orignalActionSubject$);
-        action$.compose(delay_1.default(1))
+        action$
             .addListener({
             // for each new received action
             // dispatch it
@@ -26,7 +25,8 @@ function createMiddleware(run, name = null) {
             next: action => {
                 api.dispatch(action);
             },
-            error() {
+            error(e) {
+                console.error(e);
                 console.error("Terminal error in middleware " + NAME + "\n", "stream will now close...");
             },
             complete() {
@@ -36,17 +36,11 @@ function createMiddleware(run, name = null) {
         });
         return next => {
             return action => {
-                // process firt, store is always up to date
+                // process firt, store is always up to date,
+                // so using the `getState` function of the API
+                // is up to date.
                 const returnValue = next(action);
-                // if your run function throws
-                // synchronously then send the
-                // error and close the stream
-                try {
-                    orignalActionSubject$.shamefullySendNext(action);
-                }
-                catch (e) {
-                    orignalActionSubject$.shamefullySendError(action);
-                }
+                orignalActionSubject$.shamefullySendNext(action);
                 return returnValue;
             };
         };
